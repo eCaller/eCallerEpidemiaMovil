@@ -28,10 +28,12 @@
           <md-card-content v-if="preg.tipo=='C'">
             <md-switch v-for="resp in preg.respuestas" :key="resp.id" v-model="resp.valor"  class="md-primary" >{{resp.respuesta}}</md-switch>
           </md-card-content>
-
         </md-card>
 
-        <md-button class="md-raised md-primary ancho-completo" @click="enviar()">Enviar</md-button>
+        <div v-if="triage.triage.length === 0 || comprobando === true">          
+          <md-progress-bar class="md-accent" md-mode="indeterminate"></md-progress-bar>
+        </div>
+        <md-button class="md-raised md-primary ancho-completo" @click="enviar()" :disabled="triage.triage.length === 0">Enviar</md-button>
       </md-content>
     </div>
 </template>
@@ -42,7 +44,8 @@ import Vuex, { mapGetters } from 'vuex';
 export default {
   name: 'triage',
   data: () => ({
-    radio: false
+    radio: false,
+    comprobando: false,
   }),
   computed: {...mapGetters({
     triage: 'triage/getTriage'
@@ -53,9 +56,15 @@ export default {
   },
   methods: {
     enviar() {
-      this.$store.dispatch('triage/realizarTest')
+      this.comprobando = true;
+      this.$store.dispatch('triage/comprobarTriage')
         .then((resultado) => {
+          this.comprobando = false;
           console.log(resultado);
+        })
+        .catch((error) => {
+          this.comprobando = false;
+          console.log(error);
         })
       /*
       for (let p in this.triage.triage) { //TODO enviar datos a WS y con el resultado ir a una u otra pantalla
@@ -98,5 +107,8 @@ export default {
   .logo-cabecera {    
     position: relative;
     padding-top: 10px;
+  }
+  .md-progress-bar {
+    margin: 24px;
   }
 </style>

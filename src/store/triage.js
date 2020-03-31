@@ -24,10 +24,15 @@ export default {
         commit('actualizarTriage', {triage: datos});
       })
     },
-    realizarTest: ({state}) => {
+    comprobarTriage: ({state}) => {
       return new Promise(async (resolve, reject) => {
-        let resultado = await TriageService.realizarTest(state.triage);
-        resolve(resultado);
+        try {
+          let resultado = await TriageService.comprobarTriage(state.triage);
+          resolve(resultado);
+        } catch (error) {
+          console.log('Ha ocurrido un error al procesar el triage.')
+          reject(error);
+        }        
       })      
     }
   }

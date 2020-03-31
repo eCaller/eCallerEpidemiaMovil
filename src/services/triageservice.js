@@ -23,28 +23,28 @@ export default {
             }
         });
     },
-    realizarTest(triage) {
+    comprobarTriage(triage) {
         return new Promise((resolve, reject) => {
             try {                
-                axios.post('https://'+Variables.WS_HOST+':8443/triage', triage, {
+                axios.post('https://'+Variables.WS_HOST+':8443/comprobarTriage', triage, {
                     headers: {
                         "Content-Type": 'application/json'
                     }
                 })
                     .then((respuesta) => {
                         if (respuesta.status === 200) {
-                            resolve(true);
+                            resolve(respuesta.data);
                         } else {
-                            resolve(false);
+                            reject('No ha sido posible procesar el triage.')
                         }
                     })
                     .catch((error) => {
-                        console.log('Ha ocurrido un error al realizar el test: ', error);
-                        resolve(false);
+                        console.log('Ha ocurrido un error al realizar el test: ' + error);
+                        reject('Ha ocurrido un error al realizar el test: ' + error);
                     })                
             } catch (error) {
                 console.log('Ha ocurrido un error antes de lanzar el test: ', error);
-                resolve(false)
+                reject('Ha ocurrido un error antes de lanzar el test: ', error)
             }
         })
     }
