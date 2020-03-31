@@ -1,0 +1,74 @@
+.page-container {
+  min-height: 300px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(#000, .12);
+}
+
+.md-drawer {
+  width: 230px;
+  max-width: calc(100vw - 125px);
+}
+
+.md-content {
+  padding: 16px;
+  height: -webkit-fill-available;
+}
+
+.myprimary {
+  background-color: #65a0d4;
+  color: white !important;
+}
+
+.mysuccess {
+  background-color: #4caf50;
+  color: white !important;
+}
+
+.mydanger {
+  background-color: #ff5252;
+  color: white !important;
+}
+
+.mysubheader {
+  display: inline-block;
+  padding: 4px 9px;
+  margin-bottom: 0;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  width: auto;
+}
+
+.badge {
+  width: 19px;
+  height: 19px;
+  margin-right: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #65a0d4;
+  border-radius: 100%;
+  color: #fff;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: -.05em;
+  font-family: 'Roboto Mono', monospace;
+}
