@@ -4,6 +4,7 @@
   "private": true,
   "description": "ecaller Epidemia Movil",
   "author": "jfpastor@ingenia.es",
+  "license": "GPL-3.0",
   "scripts": {
     "build": "node build/build.js",
     "cordova-build-android": "cross-env CORDOVA_PLATFORM=android vue-cli-service cordova-build-android",
@@ -39,6 +40,8 @@
     "vuex-persistedstate": "^2.7.0"
   },
   "devDependencies": {
+    "@vue/cli": "^4.3.0",
+    "@vue/cli-service": "4.2.3",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
@@ -50,12 +53,16 @@
     "babel-preset-stage-2": "^6.22.0",
     "chalk": "^2.0.1",
     "copy-webpack-plugin": "^4.0.1",
+    "cordova": "9.0.0",
+    "cordova-res": "0.10.0",
+    "cross-env": "^7.0.2",
     "css-loader": "^0.28.0",
     "dotenv": "^8.2.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
+    "native-run": "0.2.8",
     "node-notifier": "^5.1.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
