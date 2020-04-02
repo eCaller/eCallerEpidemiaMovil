@@ -1,5 +1,5 @@
 <template lang="html">
-  <md-content>
+  <div class="page-container">
     <div class="md-layout cabecera">
       <div class="md-layout-item">
         <div class="flecha-hacia-atras" @click="continuar()">
@@ -14,30 +14,32 @@
       </div>
     </div>
     
-    <div class="marginGlobal">
-      <div class="centrado" v-show='isHidden'>
-        <img class="col-" src="../assets/evitar_contagiar_otros/01-protege_a_otros.jpg"><br>
-      </div>
-      <div class="centrado" v-show='isHidden1'>
-        <img class="col-" src="../assets/evitar_contagiar_otros/02-protege_a_otros.jpg">
-      </div>
-    </div> 
-    <div>
-      
-      <div class="centrado">
-        <md-button class="md-icon-button sinMargin">
-          <font-awesome-icon class="iconoFoto" :class="{ 'orange':isHidden}" :icon="['fa', 'circle']"/>
-        </md-button>
-        <md-button class="md-icon-button sinMargin" >
-          <font-awesome-icon class="iconoFoto" :class="{ 'orange':isHidden1}" :icon="['fa', 'circle']"/>
-        </md-button>
-      </div>
-
+    <md-content>
       <div class="marginGlobal">
-        <md-button class="md-raised botonFull" @click="comprobarEstado()">Continuar</md-button>
+        <div class="centrado" v-show='isHidden'>
+          <img class="col-" src="../assets/evitar_contagiar_otros/01-protege_a_otros.jpg"><br>
+        </div>
+        <div class="centrado" v-show='isHidden1'>
+          <img class="col-" src="../assets/evitar_contagiar_otros/02-protege_a_otros.jpg">
+        </div>
+      </div> 
+      <div>
+        
+        <div class="centrado">
+          <md-button class="md-icon-button sinMargin">
+            <font-awesome-icon class="iconoFoto" :class="{ 'orange':isHidden}" :icon="['fa', 'circle']"/>
+          </md-button>
+          <md-button class="md-icon-button sinMargin" >
+            <font-awesome-icon class="iconoFoto" :class="{ 'orange':isHidden1}" :icon="['fa', 'circle']"/>
+          </md-button>
+        </div>
+
+        <div class="marginGlobal">
+          <md-button class="md-raised botonFull" @click="comprobarEstado()">Continuar</md-button>
+        </div>
       </div>
-    </div>
-  </md-content>
+    </md-content>
+  </div>
 </template>
 
 <script>
@@ -64,7 +66,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 
 .botonFull{
   width: 100%;

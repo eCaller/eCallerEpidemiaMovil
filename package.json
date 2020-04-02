@@ -22,7 +22,8 @@
     "cordova-serve-osx": "cross-env CORDOVA_PLATFORM=osx vue-cli-service cordova-serve-osx",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "generate-resources": "cordova-res"
+    "generate-resources": "cordova-res",
+    "add-depe": "cordova plugin add cordova-plugin-dialogs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",

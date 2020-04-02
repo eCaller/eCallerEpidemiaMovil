@@ -1,5 +1,5 @@
 <template lang="html">
-  <md-content>
+  <div class="page-container">
     <div class="md-layout cabecera">
       <div class="md-layout-item">
         <div class="flecha-hacia-atras" @click="continuar()">
@@ -12,6 +12,7 @@
           </div>
       </div>
     </div>
+  <md-content>
   <div class="marginGlobal">
     <div class="centrado" v-show='isHidden'>
       <img class="col-" src="../assets/mascarillas/01-cuando_usar_mascarilla.jpg"><br>
@@ -65,6 +66,7 @@
     </div>
   </div>
   </md-content>
+  </div>
 </template>
 
 <script>

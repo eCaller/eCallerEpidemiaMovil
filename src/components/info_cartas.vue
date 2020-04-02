@@ -1,5 +1,5 @@
 <template lang="html">
-  <md-content class="sinMargin">
+  <div class="page-container">
     <div class="md-layout cabecera">
       <div class="md-layout-item">
         <div class="flecha-hacia-atras" @click="continuar()">
@@ -12,7 +12,7 @@
           </div>
       </div>
     </div>
-
+    <md-content>
     <div>
       <h3 class="margenTitulo">INFORMACIÓN COVID-19</h3>
       <div class="caja">
@@ -41,8 +41,8 @@
         <md-button class="md-raised botonFull" @click="mascarillas()">Uso de mascarillas</md-button>
       </div>
     </div>
-
   </md-content>
+  </div>
 </template>
 
 <script>

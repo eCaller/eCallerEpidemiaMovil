@@ -1,5 +1,5 @@
 <template lang="html">
-  <md-content>
+  <div class="page-container">
     <div class="md-layout cabecera">
       <div class="md-layout-item">
         <div class="flecha-hacia-atras" @click="continuar()">
@@ -12,6 +12,7 @@
           </div>
       </div>
     </div>
+  <md-content>
     <div class="tamanoPantalla marginGlobal">
       <div v-show='isHiddenZona1'>
         <div @click="isHidden=!isHidden" class="relativo md-elevation-2 naranjaCabecera">
@@ -230,6 +231,7 @@
     </div>
     
   </md-content>
+  </div>
 </template>
 
 <script>

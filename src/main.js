@@ -28,10 +28,89 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
-new Vue({
+const vue = new Vue({
   el: '#app',
   router,
   store: store,
   components: { App },
   template: '<App/>'
 })
+
+/**
+ * Aquí vamos a manejar la navegación del movil con el bóton. Cada vez que
+ * se pulse el botón, simplemente subiremos un nivel en la jerarquía de rutas
+ */
+document.addEventListener("backbutton", onBackKeyDown, false);
+function onBackKeyDown(evento) {  
+  // Path de la ruta
+  let current_route = vue.$options.router.currentRoute.path;
+
+  // Vamos a corregir ahora los niveles y si el path actual
+  // tiene un padre que no sea exit, se cargará esa ruta. Cuando
+  // sea exit, se cerrará la aplicación
+  let padre = '';
+  for (let nivel of niveles) {
+    if (nivel.hijos.includes(current_route)) {
+      padre = nivel.padre;
+      break;
+    }
+  }
+  
+  if (padre === 'exit') {
+    navigator.notification.confirm(
+      '¿Está seguro de cerrar la aplicación?', 
+      (respuesta) => {
+        if (respuesta == 2) {        
+          // Cerramos la app
+          navigator.app.exitApp();
+        }
+      },
+      'Saliendo de la aplicación',
+      ['No', 'Si']);
+  } else {        
+    vue.$options.router.push(padre);
+  }
+}
+// Hijos de comportamiento_social
+const niveles = [
+  {
+    padre: '/comportamiento_social',
+    hijos: [
+      '/general', 
+      '/saludtrabajador', 
+      '/padrescuidadores', 
+      '/lideres_equipo', 
+      '/cuarentena'
+    ]
+  },
+  {
+    padre: '/info_cartas',
+    hijos: [
+      '/evitar_contagiar_otros',
+      '/viajar_con_seguridad',
+      '/factores_riesgo',
+      '/embarazo',
+      '/comportamiento_social',
+      '/mitos',
+      '/mascarillas',
+      '/lugar_trabajo',
+      '/informacion'
+    ]
+  },
+  {
+    padre: 'menu',
+    hijos: [
+      '/info_cartas',
+      '/triage',
+      '/resultado',
+      '/datosusuario'
+    ]
+  },
+  {
+    padre: 'exit',
+    hijos: [
+      '/inicio',
+      '/menu'
+    ]
+  }
+]

@@ -1,5 +1,5 @@
 <template lang="html">
-  <md-content>
+  <div class="page-container">
     <div class="md-layout cabecera">
       <div class="md-layout-item">
         <div class="flecha-hacia-atras" @click="continuar()">
@@ -11,13 +11,15 @@
             <img src="../assets/logo.png" alt="SCF">
           </div>
       </div>
-    </div>
-    <div class="marginGlobal">
-      <div class="centrado">
-        <img class="col-" src="../assets/cuarentena/01-cuarentena.jpg"><br>
+    </div>    
+    <md-content>
+      <div class="marginGlobal">
+        <div class="centrado">
+          <img class="col-" src="../assets/cuarentena/01-cuarentena.jpg"><br>
+        </div>
       </div>
-    </div>
-  </md-content>
+    </md-content>
+  </div>
 </template>
 
 <script>
@@ -34,7 +36,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 
 .md-content > .md-content {
   width: 100%;

@@ -2,16 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import {store} from '../store/store.js';
 import inicio from '@/components/inicio'
-import denegar from '@/components/denegar'
 import menu from '@/components/menu'
 import informacion from '@/components/informacion'
 import triage from '@/components/triage'
 import resultado from '@/components/resultado'
 import datosusuario from '@/components/datosusuario'
-import resultadopositivo from '@/components/resultadopositivo'
-import prevencion from '@/components/prevencion'
-import protocolos from '@/components/protocolos'
-import noticias from '@/components/noticias'
 import evitar_contagiar_otros from '@/components/evitar_contagiar_otros'
 import viajar_con_seguridad from '@/components/viajar_con_seguridad'
 import factores_riesgo from '@/components/factores_riesgo'
@@ -32,16 +27,11 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {path: '/', name: 'inicio', component: inicio},
-    {path: '/denegar', name: 'denegar', component: denegar},
     {path: '/menu', name: 'menu', component: menu},
     {path: '/informacion', name: 'informacion', component: informacion},
     {path: '/triage', name: 'triage', component: triage},
     {path: '/resultado', resultado: 'resultado', component: resultado},
     {path: '/datosusuario', datosusuario: 'datosusuario', component: datosusuario},
-    {path: '/resultadopositivo', resultadopositivo: 'resultadopositivo', component: resultadopositivo},
-    {path: '/prevencion', name: 'prevencion', component: prevencion},
-    {path: '/noticias', name: 'noticias', component: noticias},
-    {path: '/protocolos', protocolos: 'protocolos', component: protocolos},
     {path: '/evitar_contagiar_otros', evitar_contagiar_otros: 'evitar_contagiar_otros', component: evitar_contagiar_otros},
     {path: '/viajar_con_seguridad', viajar_con_seguridad: 'viajar_con_seguridad', component: viajar_con_seguridad},
     {path: '/factores_riesgo', factores_riesgo: 'factores_riesgo', component: factores_riesgo},

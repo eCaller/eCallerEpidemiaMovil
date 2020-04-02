@@ -13,7 +13,11 @@
       </div>
     </div>
     <md-content>
-      <span class="mensaje" v-html="respuestaPositivo.valor"></span>
+      <span class="mensaje" v-html="respuestaPositivo.valor"></span>           
+      <div v-if="respuestaPositivo.valor === ''">
+        Recuperando la respuesta...      
+        <md-progress-bar class="md-accent" md-mode="indeterminate"></md-progress-bar>
+      </div>
       <div>
         <md-field>
           <label>Nombre y apellidos</label>
@@ -84,13 +88,22 @@ export default {
     },
     mostrarInformacion: true,
     mostrarInicio: true,
-    faltanDatos: false
+    faltanDatos: false,
+    intervalo: null
   }),
   computed: {...mapGetters({
       caso: 'caso/getCaso',
       respuestaPositivo: 'variables/getRespuestaPositivo',
       preguntas: 'triage/getTriage'
     }),
+  },
+  created() {
+    if (this.respuestaPositivo.valor === '') {
+      this.loadVariables();
+    }
+  },
+  beforeDestroy() {
+    clearInterval(this.intervalo);
   },
   mounted() {
     this.$store.dispatch('caso/casoNuevo');
@@ -137,13 +150,23 @@ export default {
       this.$router.push("/menu");
     },
     informacion() {
-      this.$router.push("/informacion")
+      this.$router.push("info_cartas")
     },
     getAddressData(direccion, direccionConMasDatos) {
       this.caso.direccion = direccionConMasDatos.formatted_address;
       this.caso.lat = direccion.latitude;
       this.caso.lng = direccion.longitude;
       this.direccion = direccion;
+    },    
+    loadVariables() {
+      if (this.respuestaPositivo.valor === '') {
+        // Vamos a lanzar el fetch de las variales cada X tiempo
+        this.intervalo = setInterval(() => {
+          if (this.respuestaPositivo.valor === '') {
+            this.$store.dispatch('variables/loadVariables');
+          }
+        }, 25000);
+      }
     }
   },
 }

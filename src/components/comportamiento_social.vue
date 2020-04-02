@@ -1,5 +1,5 @@
 <template lang="html">
-  <md-content>
+  <div class="page-container">
     <div class="md-layout cabecera">
       <div class="md-layout-item">
         <div class="flecha-hacia-atras" @click="continuar()">
@@ -12,6 +12,7 @@
           </div>
       </div>
     </div>
+  <md-content>
     <div class="caja">
       <md-button class="md-raised botonFull" @click="general()">Generales</md-button><br>
       <md-button class="md-raised botonFull" @click="saludtrabajador()">Salud del trabajador</md-button><br>
@@ -20,6 +21,7 @@
       <md-button class="md-raised botonFull" @click="cuarentena()">Cuarentena</md-button>
     </div>
   </md-content>
+  </div>
 </template>
 
 <script>
@@ -123,8 +125,8 @@ export default {
   margin:7px;
 }
 .botonFull{
-  width: 96%;
-  margin: 6px;
+  width: 100%;
+  margin: 5px 0px;
   background-color:#FCCA75 !important;
   text-transform:none !important;
   justify-content: end !important;

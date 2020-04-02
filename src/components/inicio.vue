@@ -43,9 +43,6 @@ export default {
         window.localStorage.setItem("privacidad", 'true');
         this.$router.push("/menu");
       },
-      denegar() {
-        this.$router.push("/denegar");
-      },
       loadPolitica() {
         this.$store.dispatch('variables/loadVariables');
         this.intervalo = setInterval(() => {

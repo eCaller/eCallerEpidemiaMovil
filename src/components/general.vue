@@ -1,5 +1,5 @@
 <template lang="html">
-  <md-content>
+  <div class="page-container">
     <div class="md-layout cabecera">
       <div class="md-layout-item">
         <div class="flecha-hacia-atras" @click="continuar()">
@@ -13,6 +13,7 @@
       </div>
     </div>
 
+  <md-content>
     <div class="marginGlobal">
     <div class="centrado" v-show='isHidden'>
       <img class="col-" src="../assets/generales/01-generales.jpg"><br>
@@ -60,6 +61,7 @@
     </div>
   </div>
   </md-content>
+  </div>
 </template>
 
 <script>
@@ -103,7 +105,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 
 .md-content > .md-content {
   width: 100%;

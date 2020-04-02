@@ -1,6 +1,5 @@
 <template lang="html">
-  <md-content>
-
+  <div class="page-container">
     <div class="md-layout cabecera">
       <div class="md-layout-item">
         <div class="flecha-hacia-atras" @click="continuar()">
@@ -14,6 +13,7 @@
       </div>
     </div>
 
+    <md-content>
     <div class="marginGlobal" v-show='isHiddenZona1'>
       <div @click="isHidden=!isHidden" class="relativo md-elevation-2 naranjaCabecera">
         
@@ -403,8 +403,8 @@
       Consejos de la OMS para viajar: <a href="https://www.who.int/ith/es/">https://www.who.int/ith/es/ </a>-->
 
     
-    
-  </md-content>
+    </md-content>
+  </div>
 </template>
 
 <script>
@@ -436,15 +436,7 @@ export default {
       continuar() {
         this.$router.push("/info_cartas");
       },
-      prevencion() {
-        this.$router.push("/prevencion");
-      },
-      protocolos() {
-        this.$router.push("/protocolos");
-      },
-      noticias() {
-        this.$router.push("/noticias");
-      },comprobarEstado(){
+      comprobarEstado(){
         if(this.isHiddenZona1){
           this.isHiddenZona1=!this.isHiddenZona1
           this.isHiddenZona2=!this.isHiddenZona2
@@ -464,11 +456,7 @@ export default {
 }
 </script>
 
-<style lang="css" >
-
-.md-content{
-  padding:0px;
-}
+<style lang="css" scoped>
 .centrado{
   text-align: center;
 }
@@ -536,8 +524,8 @@ export default {
   padding: 6px;
 }
 .botonFull2{
-  width: 96%;
-  margin: 6px;
+  width: 100%;
+  margin: 0px;
   background-color:#FCCA75 !important;
   text-transform:none !important;
   justify-content: end !important;

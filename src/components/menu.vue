@@ -39,15 +39,26 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   name: 'menu',
     data: () => ({
     }),
+    computed: {
+      ...mapGetters({
+        variables: 'variables/getVariables'
+      })
+    },
+    created() {
+      if (this.variables.length === 0) {
+        // Si las variables no se han cargado por alguna razón, las intentamos volver a cargar
+        this.$store.dispatch('variables/loadVariables');
+      }
+    },
     methods: {
       informacion() {
         this.$router.push("/info_cartas");
       },
-
       triage() {
         this.$router.push("/triage");
       },

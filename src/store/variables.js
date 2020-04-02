@@ -12,7 +12,7 @@ export default {
       },
       getRespuestaNegativo: (state) => {
           let respuesta = {
-              valor: '<p></p>'
+              valor: ''
           }
           let filtrado = state.variables.find((variable) => {
               return variable.nombre.toUpperCase() === 'RESPUESTA_NEGATIVO'
@@ -25,7 +25,7 @@ export default {
       },
       getRespuestaPositivo: (state) => {
         let respuesta = {
-            valor: '<p></p>'
+            valor: ''
         }
         let filtrado = state.variables.find((variable) => {
             return variable.nombre.toUpperCase() === 'RESPUESTA_POSITIVO'
