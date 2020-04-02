@@ -49,11 +49,20 @@
         </md-field>
       </div>
       <br>
-      <md-divider></md-divider>
-      <br>
+      <md-divider></md-divider>      
+      <md-card-actions v-if="faltanDatos" style="justify-content: center; font-size: 12px; color: red;">
+          <span>* Falta información por rellenar</span>
+      </md-card-actions>
+      <md-card-actions v-if="respuestaFormulario.mensaje !== ''">
+          <span v-html="respuestaFormulario.mensaje" style="text-align: justify;"></span>
+      </md-card-actions>
       <md-card-actions>
-        <md-button class="md-raised md-default" @click="continuar()">Volver</md-button>
-        <md-button class="md-raised md-primary" @click="enviar()">Enviar</md-button>
+        <md-button v-if="respuestaFormulario.tipo === ''" 
+                  class="md-raised md-primary ancho-completo" :disabled="enviando" @click="enviar()">Enviar</md-button>
+        <md-button v-if="respuestaFormulario.tipo === 'Correcto'" class="md-raised md-primary ancho-completo" @click="informacion()">Información</md-button>
+      </md-card-actions>
+      <md-card-actions v-if="respuestaFormulario.tipo !== ''" >
+        <md-button v-if="respuestaFormulario.tipo === 'Error'" class="md-raised md-primary ancho-completo" @click="continuar()">Inicio</md-button>
       </md-card-actions>
     </md-content>
   </div>
@@ -67,7 +76,15 @@ export default {
   name: 'datosusuario',
   data: () => ({
     radio: false,
-    direccion: ''
+    direccion: '',
+    enviando: false,
+    respuestaFormulario: {
+      tipo: '',
+      mensaje: ''
+    },
+    mostrarInformacion: true,
+    mostrarInicio: true,
+    faltanDatos: false
   }),
   computed: {...mapGetters({
       caso: 'caso/getCaso',
@@ -79,23 +96,50 @@ export default {
     this.$store.dispatch('caso/casoNuevo');
   },
   methods: {
+    comprobarCamposObligatorios() {
+      let isOk = true;
+      if (this.caso.nombre == null || this.caso.nombre == '') {
+        isOk = false;
+      } else if (this.caso.dni == null || this.caso.dni == '') {
+        isOk = false;
+      } else if (this.caso.telefono == null || this.caso.telefono == '') {
+        isOk = false;
+      } else if (this.caso.direccion == null || this.caso.direccion == '') {
+        isOk = false;
+      }
+      return isOk;
+    },
     enviar() {
-      this.caso.fecha = new Date();
-      this.$store.dispatch('caso/enviarCaso', this.preguntas)
-      .then((response) => {
-        console.log('Caso enviado con exito.')
-      })
-      .catch((error) => {
-        console.log('Ha fallado el envío del caso')
-      });
-      //this.$router.push("/resultadopositivo"); //TODO enviar los datos al ws
+      if (this.comprobarCamposObligatorios()) {
+        this.faltanDatos = false;
+        this.caso.fecha = new Date();
+        this.enviando = true;
+        this.$store.dispatch('caso/enviarCaso', this.preguntas)
+        .then((response) => {
+          this.respuestaFormulario.tipo = 'Correcto';
+          this.respuestaFormulario.mensaje= 'Se ha enviado correctamente el formulario, en breve nos pondremos en contacto con usted. ' +
+          'Si quiere leer información sobre el <strong>COVID-19</strong>, pulse en Información.'
+          this.mostrarInformacion = true;
+          console.log('Caso enviado con exito.')
+        })
+        .catch((error) => {
+          this.enviando = false;        
+          this.respuestaFormulario.tipo = 'Error';
+          this.respuestaFormulario.mensaje= 'Se ha producido un error al procesar su formulario. Por favor, inténtelo de nuevo pasado un tiempo';
+          this.mostrarInicio = true;
+          console.log('Ha fallado el envío del caso')
+        });       
+      } else {
+        this.faltanDatos = true;
+      }
     },
     continuar() {
       this.$router.push("/menu");
     },
+    informacion() {
+      this.$router.push("/informacion")
+    },
     getAddressData(direccion, direccionConMasDatos) {
-      console.log(JSON.stringify(direccion));
-      console.log(JSON.stringify(direccionConMasDatos));
       this.caso.direccion = direccionConMasDatos.formatted_address;
       this.caso.lat = direccion.latitude;
       this.caso.lng = direccion.longitude;
@@ -107,28 +151,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="css" scoped>
-  .md-layout-item {
-    height: 80px;
-  }
-  .ancho-completo { 
-    width: 100%;
-    padding: 0px;
-    margin: 10px 0px !important;
-  }
-  .cabecera {
-    background-color: #ddd;
-  }
-  .flecha-hacia-atras {
-    position: relative;
-    padding-top: 20px;
-    padding-left: 25px;
-    font-size: 40px;
-    color:orange;
-  }
-  .logo-cabecera {    
-    position: relative;
-    padding-top: 10px;
-  }
   .buscador-direccion {
     width: 100%;
     border: 0px;

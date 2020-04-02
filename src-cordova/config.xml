@@ -24,11 +24,12 @@
     <splash src="res/splash.png" />
     <platform name="android">
         <allow-intent href="market:*" />
-        <icon density="hdpi" src="res/drawable-hdpi/ic_launcher.png" />
-        <icon density="mdpi" src="res/drawable-mdpi/ic_launcher.png" />
-        <icon density="xhdpi" src="res/drawable-xhdpi/ic_launcher.png" />
-        <icon density="xxhdpi" src="res/drawable-xxhdpi/ic_launcher.png" />
-        <icon density="xxxhdpi" src="res/drawable-xxxhdpi/ic_launcher.png" />
+        <icon density="hdpi" src="res/drawable-hdpi/drawable-hdpi-icon.png" />
+        <icon density="mdpi" src="res/drawable-mdpi/drawable-mdpi-icon.png" />        
+        <icon density="ldpi" src="res/drawable-ldpi/drawable-ldpi-icon.png" />
+        <icon density="xhdpi" src="res/drawable-xhdpi/drawable-xhdpi-icon.png" />
+        <icon density="xxhdpi" src="res/drawable-xxhdpi/drawable-xxhdpi-icon.png" />
+        <icon density="xxxhdpi" src="res/drawable-xxxhdpi/drawable-xxxhdpi-icon.png" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />

@@ -36,6 +36,16 @@ export default {
         }
         return respuesta;
 
+      },      
+      getPoliticaPrivacidad: (state) => {
+        let politica = '';
+        let variablePolitica = state.variables.find((variable) => {
+          return variable.nombre.toUpperCase() === 'PRIVACIDAD'
+        })
+        if (variablePolitica != undefined) {
+          politica = variablePolitica.valor;
+        }
+        return politica;
       }
     },
     mutations: {

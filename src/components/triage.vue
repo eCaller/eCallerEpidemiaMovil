@@ -33,7 +33,7 @@
       <div v-if="triage.length === 0 || comprobando === true">          
         <md-progress-bar class="md-accent" md-mode="indeterminate"></md-progress-bar>
       </div>
-      <md-button class="md-raised md-primary ancho-completo" @click="enviar()" :disabled="triage.length === 0">Enviar</md-button>
+      <md-button class="md-raised md-primary ancho-completo" @click="enviar()" :disabled="triage.length === 0">Finalizar</md-button>
     </md-content>
   </div>
 </template>
@@ -70,11 +70,9 @@ export default {
           } else {            
             this.$router.push("/resultado");
           }
-          console.log(resultado);
         })
         .catch((error) => {
           this.comprobando = false;
-          console.log(error);
         })
     },
     continuar() {

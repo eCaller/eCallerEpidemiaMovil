@@ -27,7 +27,6 @@ export default new Router({
     {path: '/resultadopositivo', resultadopositivo: 'resultadopositivo', component: resultadopositivo},
     {path: '/prevencion', name: 'prevencion', component: prevencion},
     {path: '/protocolos', name: 'protocolos', component: protocolos},
-    {path: '/noticias', name: 'noticias', component: noticias},
-    //{path: '/servicio/:id', name:'servicio', component:servicio},
+    {path: '/noticias', name: 'noticias', component: noticias}
   ]
 })

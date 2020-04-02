@@ -11,15 +11,29 @@
           </div>
       </div>
     </div>
+      
     <md-content>
-      <div class="row bloque-texto"><div class="col-sm-8 offset-sm-4 align-self-center">
-        <h3>Seleccionar</h3><p>Indique qué acción desea realizar.</p>
-      </div></div>
-
-      <md-divider></md-divider>
-      <md-button class="md-raised md-default" @click="informacion()" style="width: 100%; height: 10em; color:orange; margin-left: 0;">Información</md-button>
-      <br>
-      <md-button class="md-raised md-default" @click="triage()" style="width: 100%; height: 10em; color:orange; margin-left: 0;">¿tiene algún síntoma?</md-button>
+      <div v-on:click="informacion()">
+        <md-card class="tarjeta">
+          <md-card-media>
+            <img src="../assets/covid.png" alt="covid-19">
+          </md-card-media>
+          <md-card-content class="pie-de-tarjeta">
+            Información sobre Covid-19
+          </md-card-content>
+        </md-card>
+      </div>
+      
+      <div v-on:click="triage()">
+        <md-card class="tarjeta">
+          <md-card-media>
+            <img src="../assets/test.png" alt="test">
+          </md-card-media>
+          <md-card-content class="pie-de-tarjeta">
+            ¿Tienes algún síntoma?
+          </md-card-content>
+        </md-card>
+      </div>
     </md-content>
   </div>
 </template>
@@ -37,9 +51,6 @@ export default {
       triage() {
         this.$router.push("/triage");
       },
-    },
-    created() {
-      this.$store.dispatch('variables/loadVariables');
     }
 }
 </script>
@@ -66,5 +77,16 @@ export default {
     position: relative;
     padding-top: 10px;
   }
-
+  .tarjeta {    
+    box-shadow: none !important;
+    text-align: center;    
+    margin: 15% auto;
+  }
+  .pie-de-tarjeta {    
+    font-size: 20px !important;
+    font-weight: bold;
+  }
+  .tarjeta img {
+    width: 40% !important;
+  }
 </style>
