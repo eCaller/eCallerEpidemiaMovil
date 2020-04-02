@@ -45,7 +45,7 @@ export default {
     }),
     methods: {
       informacion() {
-        this.$router.push("/informacion");
+        this.$router.push("/info_cartas");
       },
 
       triage() {
@@ -56,7 +56,6 @@ export default {
 </script>
 
 <style lang="css">
-
   .ancho-completo { 
     width: 100%;
     padding: 0px;
