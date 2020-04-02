@@ -150,7 +150,7 @@ export default {
       this.$router.push("/menu");
     },
     informacion() {
-      this.$router.push("info_cartas")
+      this.$router.push("/info_cartas")
     },
     getAddressData(direccion, direccionConMasDatos) {
       this.caso.direccion = direccionConMasDatos.formatted_address;
