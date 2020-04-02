@@ -1,32 +1,32 @@
 import axios from "axios";
-import Variables from '../variables';
+import Entorno from '../entorno';
 
 export default {
     getTriage() {
         return new Promise((resolve, reject) => {
             try {                    
-                axios.get('https://'+Variables.WS_HOST+':8443/triage')
+                axios.get('https://'+Entorno.WS_HOST+':8443/triage')
                     .then((respuesta) => {
                         if (respuesta.status === 200) {
                             resolve(respuesta.data);
                         } else {
-                            resolve([]);
+                            reject([]);
                         }                    
                     })
                     .catch((error) => {
                         console.log('Ha ocurrido un error al recuperar el triage: ', error);
-                        resolve([])
+                        reject([])
                     });                
             } catch (error) {
                 console.log('Ha ocurrido un error antes de recuperar el triage: ', error);
-                resolve([])
+                reject([])
             }
         });
     },
     comprobarTriage(triage) {
         return new Promise((resolve, reject) => {
             try {                
-                axios.post('https://'+Variables.WS_HOST+':8443/comprobarTriage', triage, {
+                axios.post('https://'+Entorno.WS_HOST+':8443/comprobarTriage', triage, {
                     headers: {
                         "Content-Type": 'application/json'
                     }

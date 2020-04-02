@@ -5,8 +5,15 @@
 </template>
 
 <script>
+import Entorno from './entorno.js'
+
 export default {
-  name: 'App'
+  name: 'App',
+  mounted() {    
+      let googleScript = document.createElement('script')
+      googleScript.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key='+ Entorno.API_KEY +'&libraries=places')
+      document.body.appendChild(googleScript)
+  }
 }
 </script>
 

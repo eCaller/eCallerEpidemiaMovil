@@ -4,6 +4,7 @@ import {mapGetters} from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 import caso from './caso.js';
 import triage from './triage.js';
+import variables from './variables.js';
 
 Vue.use(Vuex);
 
@@ -13,7 +14,8 @@ export const store = new Vuex.Store({
   },
   modules: {
     caso: caso,
-    triage: triage
+    triage: triage,
+    variables: variables
   },
   plugins: [createPersistedState({ storage: window.sessionStorage })],
   mutations: {
@@ -22,7 +24,7 @@ export const store = new Vuex.Store({
   getters: {
 
   },
-  computed: mapGetters(['caso', 'triage']),
+  computed: mapGetters(['caso', 'triage', 'variables']),
   actions: {
 
   }

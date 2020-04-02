@@ -10,7 +10,7 @@ export default {
   },
   getters: {
     getTriage: (state) => {
-      return state;
+      return state.triage;
     }
   },
   mutations: {
@@ -20,9 +20,13 @@ export default {
   },
   actions: {
     loadTriage: ({commit}) => {
-      TriageService.getTriage().then((datos) => {
-        commit('actualizarTriage', {triage: datos});
-      })
+      TriageService.getTriage()
+        .then((datos) => {
+          commit('actualizarTriage', {triage: datos});
+        })
+        .catch((datos) => {
+          // Si falla lo dejamos sin cambiar
+        })
     },
     comprobarTriage: ({state}) => {
       return new Promise(async (resolve, reject) => {
