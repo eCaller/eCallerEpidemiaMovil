@@ -14,6 +14,26 @@ yarn-error.log*
 *.sln
 
 # Cordova
+/src-cordova/node_modules
+/src-cordova/platforms
+/src-cordova/plugins
+/public/cordova.js
+
+# Built application files
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Cordova
 /src-cordova/platforms
 /src-cordova/plugins
 /public/cordova.js

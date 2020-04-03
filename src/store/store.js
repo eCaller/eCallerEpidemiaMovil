@@ -1,11 +1,25 @@
+/** 
+ * Copyright 2020, Ingenia, S.A.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * 
+ * @author jamartin@ingenia.es
+ */
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
 import {mapGetters} from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 import caso from './caso.js';
 import triage from './triage.js';
-import noticias from './noticias.js';
+import variables from './variables.js';
 
 Vue.use(Vuex);
 
@@ -16,7 +30,7 @@ export const store = new Vuex.Store({
   modules: {
     caso: caso,
     triage: triage,
-    noticias: noticias,
+    variables: variables
   },
   plugins: [createPersistedState({ storage: window.sessionStorage })],
   mutations: {
@@ -25,7 +39,7 @@ export const store = new Vuex.Store({
   getters: {
 
   },
-  computed: mapGetters(['caso', 'triage', 'noticias']),
+  computed: mapGetters(['caso', 'triage', 'variables']),
   actions: {
 
   }

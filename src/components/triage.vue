@@ -1,70 +1,116 @@
 <template>
-  <div class="page-container md-layout-column">
-    <md-card-media style="background-color: white">
-      <img src="../assets/logo.png" alt="SCF" style="width: auto; margin-left:10px; margin-top:10px; margin-bottom:10px;">
-    </md-card-media>
-
-      <md-content>
-        <h3>Test de detección</h3>
-        <p>Para detectar si posee algún síntoma, responda a continuación a las siguientes preguntas</p>
-
-        <md-card style="margin-left: 0x; margin-right: 0x" v-for="preg in triage.triage" :key="preg.id">
-          <md-card-header class="md-primary">
-            <div class="md-subhead">{{preg.pregunta}}</div>
-          </md-card-header>
-
-          <md-card-content v-if="preg.tipo=='R'">
-            <md-radio v-for="resp in preg.respuestas" :key="resp.id" v-model="preg.value" :value="resp.id" class="md-primary" >{{resp.respuesta}}</md-radio>
-          </md-card-content>
-
-          <md-card-content v-if="preg.tipo=='C'">
-            <md-switch v-model="resp.valor" v-for="resp in preg.respuestas" :key="resp.id" class="md-primary" >{{resp.respuesta}}</md-switch>
-          </md-card-content>
-
-        </md-card>
-
-        <md-card-actions>
-          <md-button class="md-raised md-default" @click="continuar()">Volver</md-button>
-          <md-button class="md-raised md-primary" @click="enviar()">Enviar</md-button>
-        </md-card-actions>
-      </md-content>
+  <div class="page-container">
+    <div class="md-layout cabecera">
+      <div class="md-layout-item">
+        <div class="flecha-hacia-atras" @click="continuar()">
+          <font-awesome-icon :icon="['fa', 'angle-left']"/>
+        </div>
+      </div>
+      <div class="md-layout-item">
+          <div class="logo-cabecera">
+            <img src="../assets/logo.png" alt="SCF">
+          </div>
+      </div>
     </div>
+    <md-content>
+      <h2 class="md-primary">Test de detección</h2>
+      <p>Para detectar si posee algún síntoma, responda a continuación a las siguientes preguntas</p>
+
+      <md-card style="margin-left: 0x; margin-right: 0x" v-for="preg in triage" :key="preg.id">
+        <md-card-header class="md-primary">
+          <div class="md-subhead">{{preg.pregunta}}</div>
+        </md-card-header>
+
+        <md-card-content v-if="preg.tipo=='R'">
+          <md-radio v-for="resp in preg.respuestas" :key="resp.id" v-model="preg.value" :value="resp.id" class="md-primary" >{{resp.respuesta}}</md-radio>
+        </md-card-content>
+
+        <md-card-content v-if="preg.tipo=='C'">
+          <md-switch v-for="resp in preg.respuestas" :key="resp.id" v-model="resp.valor"  class="md-primary" >{{resp.respuesta}}</md-switch>
+        </md-card-content>
+      </md-card>
+
+      <div v-if="triage.length === 0 || comprobando === true">          
+        <md-progress-bar class="md-accent" md-mode="indeterminate"></md-progress-bar>
+      </div>
+      <md-button class="md-raised md-primary ancho-completo" @click="enviar()" :disabled="triage.length === 0">Finalizar</md-button>
+    </md-content>
+  </div>
 </template>
 
 <script>
-import Vuex from 'vuex';
-import {mapGetters} from 'vuex';
+import Vuex, { mapGetters } from 'vuex';
 
 export default {
+  /** 
+   * Copyright 2020, Ingenia, S.A.
+   *
+   * This program is free software: you can redistribute it and/or modify
+   * it under the terms of the GNU General Public License as published by
+   * the Free Software Foundation, either version 3 of the License, or
+   * (at your option) any later version.
+   * 
+   * This program is distributed in the hope that it will be useful,
+   * but WITHOUT ANY WARRANTY; without even the implied warranty of
+   * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+   * GNU General Public License for more details.
+   * 
+   * @author jamartin@ingenia.es
+   */
   name: 'triage',
   data: () => ({
-    radio: false
+    radio: false,
+    // Para controlar cuando se muestra la barra de carga
+    comprobando: false,
+    intervalo: null
   }),
-  computed: {...mapGetters(['triage']), //TODO Recuperar los datos de WS 
+  computed: {...mapGetters({
+    triage: 'triage/getTriage'
+    }),
+  },
+  created() {
+    this.loadData();
+  },
+  beforeDestroy() {
+    clearInterval(this.intervalo);
   },
   methods: {
     enviar() {
-      let resultado = false;
-      for (let p in this.triage.triage) { //TODO enviar datos a WS y con el resultado ir a una u otra pantalla
-        let val = this.triage.triage[p];
-        if (val && val.value) {
-          resultado = true;
-          break;
-        }
-      }
-      if (resultado) {
-        this.$router.push("/datosusuario");
-      } else {
-        this.$router.push("/resultado");
-      }
+      this.comprobando = true;
+      this.$store.dispatch('triage/comprobarTriage')
+        .then((resultado) => {
+          this.comprobando = false;
+          if (resultado) {
+            this.$router.push("/datosusuario");
+          } else {            
+            this.$router.push("/resultado");
+          }
+        })
+        .catch((error) => {
+          this.comprobando = false;
+        })
     },
     continuar() {
       this.$router.push("/menu");
     },
+    loadData() {      
+      this.$store.dispatch('triage/loadTriage');
+      this.intervalo = setInterval(() => {
+        if (this.triage.length === 0) {
+          this.$store.dispatch('triage/loadTriage');
+        }
+      }, 25000);
+    }
   },
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
+  .md-progress-bar {
+    margin: 24px;
+  }
+  .md-switch {
+    width: 100%;
+  }
 </style>

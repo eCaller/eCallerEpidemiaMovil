@@ -1,66 +1,59 @@
+/** 
+ * Copyright 2020, Ingenia, S.A.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * 
+ * @author jamartin@ingenia.es
+ */
 import createPersistedState from 'vuex-persistedstate';
+import TriageService from '../services/triageservice';
 
 export default {
+  namespaced: true,
   state: {
     /////////////////////////////////////////////////////////////////////////////////// triage, preguntas y respuestas
     triage: [
-      {
-        id: 1, codigo:"A", pregunta: "¿Tienes Fiebre?", orden: 1, tipo: 'R', value:null,
-        respuestas: [
-          {id:1, codigo:"1", respuesta: "Sí", orden: 1, valor:"false"},
-          {id:2, codigo:"2", respuesta: "No", orden: 2, valor:"false"},
-        ]
-      },
-      {
-        id: 2, codigo:"B", pregunta: "¿Tienes tos continuada o persistente?", orden: 2, tipo: 'R', value:null,
-        respuestas: [
-          {id:3, codigo:"1", respuesta: "Sí", orden: 1, valor:"false"},
-          {id:4, codigo:"2", respuesta: "No", orden: 2, valor:"false"},
-        ]
-      },
-      {
-        id: 3, codigo:"C", pregunta: "¿Tienes dificultad respiratoria?", orden: 3, tipo: 'R', value:null,
-        respuestas: [
-          {id:5, codigo:"1", respuesta: "Sí", orden: 1, valor:"false"},
-          {id:6, codigo:"2", respuesta: "No", orden: 2, valor:"false"},
-        ]
-      },
-      {
-        id: 4, codigo:"D", pregunta: "¿Tienes malestar general?", orden: 4, tipo: 'R', value:null,
-        respuestas: [
-          {id:7, codigo:"1", respuesta: "Sí", orden: 1, valor:"false"},
-          {id:8, codigo:"2", respuesta: "No", orden: 2, valor:"false"},
-        ]
-      },
-      {
-        id: 5, codigo:"E", pregunta: "Si estás sufriendo alguno de estos síntomas, márcalos", orden: 5, tipo: 'C', value:null,
-        respuestas: [
-          {id:9, codigo:"1", respuesta: "Disnea (ahogo)", orden: 1, valor:"false"},
-          {id:10, codigo:"2", respuesta: "Hemoptisis (expectorar sangre)", orden: 2, valor:"false"},
-          {id:11, codigo:"3", respuesta: "Dolor en el costado", orden: 3, valor:"false"},
-        ]
-      },
-      {
-        id: 6, codigo:"F", pregunta: "¿Sufres alguna de estas enfermedades? Si es el caso, márcalas", orden: 6, tipo: 'C', value:null,
-        respuestas: [
-          {id:11, codigo:"1", respuesta: "Diabetes", orden: 1, valor:"false"},
-          {id:12, codigo:"2", respuesta: "Enfermedad cardiovascular (incluida la hipertensión)", orden: 2, valor:"false"},
-          {id:13, codigo:"3", respuesta: "Enfermedad hepática crónica", orden: 3, valor:"false"},
-          {id:14, codigo:"4", respuesta: "Enfermedad pulmonar crónica", orden: 4, valor:"false"},
-          {id:15, codigo:"5", respuesta: "Enfermedad renal crónica", orden: 5, valor:"false"},
-          {id:16, codigo:"6", respuesta: "Enfermedad neurológica o neuromuscular crónica", orden: 6, valor:"false"},
-          {id:17, codigo:"7", respuesta: "Inmunodeficiencia congénita o adquirida (incluyendo el VIH)", orden: 7, valor:"false"},
-          {id:18, codigo:"8", respuesta: "Cáncer", orden: 8, valor:"false"},
-        ]
-      },
-
     ]
   },
   getters: {
-    triage (state) {
-      return state;
+    getTriage: (state) => {
+      return state.triage;
     }
-
   },
+  mutations: {
+    actualizarTriage: (state, payload) => {
+      state.triage = payload.triage;
+    }
+  },
+  actions: {
+    loadTriage: ({commit}) => {
+      TriageService.getTriage()
+        .then((datos) => {
+          commit('actualizarTriage', {triage: datos});
+        })
+        .catch((datos) => {
+          // Si falla lo dejamos sin cambiar
+        })
+    },
+    comprobarTriage: ({state}) => {
+      return new Promise(async (resolve, reject) => {
+        try {
+          let resultado = await TriageService.comprobarTriage(state.triage);
+          resolve(resultado);
+        } catch (error) {
+          console.log('Ha ocurrido un error al procesar el triage.')
+          reject(error);
+        }        
+      })      
+    }
+  }
 
 }

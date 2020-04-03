@@ -1,46 +1,90 @@
 <template lang="html">
-  <md-content>
-    <md-card-media style="background-color: white">
-      <img src="../assets/logo.png" alt="SCF" style="width: auto; margin-left:10px; margin-top:10px; margin-bottom:10px;">
-    </md-card-media>
-    <div class="row bloque-texto"><div class="col-sm-8 offset-sm-4 align-self-center">
-      <h3>Resultado</h3>
-      <p><strong>No presentas síntomas, ¡pero no te confíes!</strong></p>
-      <p>Sigue con las medidas de protección y aislamiento y contrólate los síntomas un mínimo de 14 días.</p>
-      <p><strong>¡Es muy importante que sigas las medidas de confinamiento y te quedes en casa!</strong></p>
-      <p>Contener el virus es responsabilidad de todos.</p>
-    </div></div>
-
-    <md-divider></md-divider>
-    <md-card-actions>
-      <md-button class="md-raised md-default" @click="informacion()">Información</md-button>
-      <md-button class="md-raised md-primary" @click="continuar()">Volver</md-button>
-    </md-card-actions>
-  </md-content>
+  <div class="page-container">
+    <div class="md-layout cabecera">
+      <div class="md-layout-item">
+        <div class="flecha-hacia-atras" @click="continuar()">
+          <font-awesome-icon :icon="['fa', 'angle-left']"/>
+        </div>
+      </div>
+      <div class="md-layout-item">
+          <div class="logo-cabecera">
+            <img src="../assets/logo.png" alt="SCF">
+          </div>
+      </div>
+    </div>
+    <md-content>
+      <div class="row bloque-texto">
+        <div class="col-sm-8 offset-sm-4 align-self-center">
+          <span v-html="respuestaNegativo.valor"></span>
+        </div>
+      </div>      
+      <div v-if="respuestaNegativo.valor === ''">
+        Recuperando la respuesta...      
+        <md-progress-bar class="md-accent" md-mode="indeterminate"></md-progress-bar>
+      </div>
+      <md-card-actions>
+        <md-button class="md-raised md-primary ancho-completo" @click="informacion()">Información sobre Covid-19</md-button>
+      </md-card-actions>
+    </md-content>
+  </div>
 </template>
 
 <script>
+/** 
+ * Copyright 2020, Ingenia, S.A.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * 
+ * @author jamartin@ingenia.es
+ */
+import { mapGetters } from 'vuex';
 export default {
   name: 'resultadonegativo',
     data: () => ({
+      intervalo: null
     }),
     methods: {
       informacion() {
-        this.$router.push("/informacion");
+        this.$router.push("/info_cartas");
       },
-      continuar() {
+      continuar() {        
         this.$router.push("/menu");
       },
-
+      loadVariables() {
+        if (this.respuestaNegativo.valor === '') {
+          // Vamos a lanzar el fetch de las variales cada X tiempo
+          this.intervalo = setInterval(() => {
+            if (this.respuestaNegativo.valor === '') {
+              this.$store.dispatch('variables/loadVariables');
+            }
+          }, 25000);
+        }
+      }
+    },
+    computed: {
+      ...mapGetters({
+        respuestaNegativo: 'variables/getRespuestaNegativo'
+      })
+    },
+    created() {
+      this.loadVariables();
+    },
+    beforeDestroy() {
+      clearInterval(this.intervalo);
     }
 }
 </script>
 
-<style lang="css">
-body {
-
-}
-.md-content > .md-content {
+<style lang="css" scoped>
+  .md-content > .md-content {
     width: 100%;
     max-height: 23em;
     overflow: auto;
