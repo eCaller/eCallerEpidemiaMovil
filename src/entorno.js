@@ -14,6 +14,6 @@
  * @author jamartin@ingenia.es
  */
 export default {
-    WS_HOST: '192.168.1.6',
+    WS_HOST: 'ecallerepidemias.ddns.net',
     API_KEY: 'AIzaSyCMfZc6jsxjU8-tZ3PJp3pNNYAb4wTHNtY'
 }
