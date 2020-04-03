@@ -14,6 +14,6 @@
  * @author jamartin@ingenia.es
  */
 export default {
-    WS_HOST: '192.168.1.6',
+    WS_HOST: '',
     API_KEY: ''
 }
