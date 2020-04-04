@@ -17,12 +17,16 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <allow-navigation href="https://*/*" />
     <preference name="android-targetSdkVersion" value="28" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="SplashScreenDelay" value="5000" />
     <preference name="ShowSplashScreenSpinner" value="false" />
     <splash src="res/splash.png" />
     <platform name="android">
+        <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
+            <application android:allowBackup="false" android:usesCleartextTraffic="true" />
+        </edit-config>
         <allow-intent href="market:*" />
         <icon density="hdpi" src="res/drawable-hdpi/drawable-hdpi-icon.png" />
         <icon density="mdpi" src="res/drawable-mdpi/drawable-mdpi-icon.png" />        
