@@ -17,27 +17,24 @@ import axios from "axios";
 import endpoints from '../store/endpoints';
 
 export default {
-    enviarCaso(caso, preguntas) {
+    getMunicipios() {
         return new Promise((resolve, reject) => {
             try {                    
-                axios.post(endpoints.state.caso.url, {
-                    'caso':caso,
-                    'preguntas': preguntas
-                })
+                axios.get(endpoints.state.territorios.urlMunicipios)
                     .then((respuesta) => {
                         if (respuesta.status === 200) {
                             resolve(respuesta.data);
                         } else {
-                            reject('');
+                            reject([]);
                         }                    
                     })
                     .catch((error) => {
-                        console.log('Ha ocurrido un error al crear el caso: ', error);
-                        reject('')
+                        console.log('Ha ocurrido un error al recuperar los municipios: ', error);
+                        reject([])
                     });                
             } catch (error) {
-                console.log('Ha ocurrido un error antes de crear el caso: ', error);
-                reject('')
+                console.log('Ha ocurrido un error antes de recuperar los municipios: ', error);
+                reject([])
             }
         });
     }

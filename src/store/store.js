@@ -20,6 +20,8 @@ import createPersistedState from 'vuex-persistedstate';
 import caso from './caso.js';
 import triage from './triage.js';
 import variables from './variables.js';
+import territorios from './territorios.js';
+import endpoints from './endpoints.js';
 
 Vue.use(Vuex);
 
@@ -30,7 +32,9 @@ export const store = new Vuex.Store({
   modules: {
     caso: caso,
     triage: triage,
-    variables: variables
+    variables: variables,
+    territorios: territorios,
+    endpoints: endpoints
   },
   plugins: [createPersistedState({ storage: window.sessionStorage })],
   mutations: {
@@ -39,7 +43,7 @@ export const store = new Vuex.Store({
   getters: {
 
   },
-  computed: mapGetters(['caso', 'triage', 'variables']),
+  computed: mapGetters(['caso', 'triage', 'variables', 'territorios', 'endpoints']),
   actions: {
 
   }

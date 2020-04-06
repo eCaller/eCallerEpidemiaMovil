@@ -51,6 +51,10 @@
           </vue-google-autocomplete>
           <span class="md-helper-text">nombre, número, localidad, provincia</span>
         </md-field>
+        <md-autocomplete v-model="filtroBusqueda" :md-options="municipios" @md-changed="filtrarOpciones" @md-selected="municipioSeleccionado" md-dense>
+          <label>Municipio *</label>
+          <template slot="md-autocomplete-item" slot-scope="{ item }"> {{item.nombre}}</template>
+        </md-autocomplete>
       </div>
       <br>
       <md-divider></md-divider>      
@@ -104,26 +108,41 @@ export default {
     mostrarInformacion: true,
     mostrarInicio: true,
     faltanDatos: false,
-    intervalo: null
+    intervaloTriage: null,
+    intervaloMunicipios: null,
+    filtroBusqueda: ''
   }),
   computed: {...mapGetters({
       caso: 'caso/getCaso',
       respuestaPositivo: 'variables/getRespuestaPositivo',
-      preguntas: 'triage/getTriage'
+      preguntas: 'triage/getTriage',
+      municipios: 'territorios/getMunicipios'
     }),
   },
   created() {
     if (this.respuestaPositivo.valor === '') {
       this.loadVariables();
     }
+    if (this.municipios.length === 0) {
+      this.loadMunicipios();
+    }
   },
   beforeDestroy() {
-    clearInterval(this.intervalo);
+    clearInterval(this.intervaloTriage);
+    clearInterval(this.intervaloMunicipios);
   },
   mounted() {
     this.$store.dispatch('caso/casoNuevo');
   },
   methods: {
+    filtrarOpciones(filtro) {
+      return filtro.toUpperCase();
+    },
+    municipioSeleccionado(municipio) {
+      this.filtroBusqueda = municipio.nombre;
+      this.caso.municipio = municipio;
+      return municipio;
+    },
     comprobarCamposObligatorios() {
       let isOk = true;
       if (this.caso.nombre == null || this.caso.nombre == '') {
@@ -133,6 +152,8 @@ export default {
       } else if (this.caso.telefono == null || this.caso.telefono == '') {
         isOk = false;
       } else if (this.caso.direccion == null || this.caso.direccion == '') {
+        isOk = false;
+      } else if (this.caso.municipio == null || this.caso.municipio == '') {
         isOk = false;
       }
       return isOk;
@@ -176,9 +197,20 @@ export default {
     loadVariables() {
       if (this.respuestaPositivo.valor === '') {
         // Vamos a lanzar el fetch de las variales cada X tiempo
-        this.intervalo = setInterval(() => {
+        this.intervaloTriage = setInterval(() => {
           if (this.respuestaPositivo.valor === '') {
             this.$store.dispatch('variables/loadVariables');
+          }
+        }, 25000);
+      }
+    },
+    loadMunicipios() {
+      this.$store.dispatch('territorios/loadMunicipios');
+      if (this.municipios.length === 0) {
+        // Vamos a lanzar el fetch de los municipios cada X tiempo
+        this.intervaloMunicipios = setInterval(() => {
+          if (this.municipios.length === 0) {
+            this.$store.dispatch('territorios/loadMunicipios');
           }
         }, 25000);
       }

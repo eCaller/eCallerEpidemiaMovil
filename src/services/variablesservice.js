@@ -14,13 +14,13 @@
  * @author jamartin@ingenia.es
  */
 import axios from "axios";
-import Entorno from '../entorno';
+import endpoints from '../store/endpoints';
 
 export default {
     getVariables() {
         return new Promise((resolve, reject) => {
             try {                    
-                axios.get('https://'+Entorno.WS_HOST+':8443/variables')
+                axios.get(endpoints.state.variables.url)
                     .then((respuesta) => {
                         if (respuesta.status === 200) {
                             resolve(respuesta.data);

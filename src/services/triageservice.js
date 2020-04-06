@@ -14,13 +14,13 @@
  * @author jamartin@ingenia.es
  */
 import axios from "axios";
-import Entorno from '../entorno';
+import endpoints from '../store/endpoints';
 
 export default {
     getTriage() {
         return new Promise((resolve, reject) => {
             try {                    
-                axios.get('https://'+Entorno.WS_HOST+':8443/triage')
+                axios.get(endpoints.state.triage.url)
                     .then((respuesta) => {
                         if (respuesta.status === 200) {
                             resolve(respuesta.data);
@@ -41,7 +41,7 @@ export default {
     comprobarTriage(triage) {
         return new Promise((resolve, reject) => {
             try {                
-                axios.post('https://'+Entorno.WS_HOST+':8443/comprobarTriage', triage, {
+                axios.post(endpoints.state.triage.urlComprobarTriage, triage, {
                     headers: {
                         "Content-Type": 'application/json'
                     }

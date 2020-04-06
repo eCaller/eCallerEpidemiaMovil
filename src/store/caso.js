@@ -29,7 +29,8 @@ export default {
         dni: null,
         observaciones: null,
         lat: null,
-        lng: null
+        lng: null,
+        municipio: null
   },
   getters: {
     getCaso (state) {
@@ -50,7 +51,8 @@ export default {
       state.dni = null,
       state.observaciones = null,
       state.lat = null,
-      state.lng = null
+      state.lng = null,
+      state.municipio = null
     }
   },
   actions: {

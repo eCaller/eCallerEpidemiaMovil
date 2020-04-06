@@ -15,5 +15,6 @@
  */
 export default {
     WS_HOST: '',
+    WS_PORT: '',
     API_KEY: ''
 }
