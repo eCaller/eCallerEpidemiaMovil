@@ -15,23 +15,23 @@
  */
 import VariablesService from '../services/variablesservice';
 import Entorno from '../entorno';
+const base = Entorno.WS_HOST + ':' + Entorno.WS_PORT + '/movil';
 
 export default {
     namespaced: true,
     state: {
-      /////////////////////////////////////////////////////////////////////////////////// triage, preguntas y respuestas
       caso: {
-        url: Entorno.WS_HOST + ':' + Entorno.WS_PORT + '/caso'
+        url: base + '/caso'
       },
       triage: {
-        url: Entorno.WS_HOST + ':' + Entorno.WS_PORT + '/triage',
-        urlComprobarTriage: Entorno.WS_HOST + ':' + Entorno.WS_PORT + '/comprobarTriage',
+        url: base + '/triage',
+        urlComprobarTriage: base + '/comprobarTriage',
       },
       variables: {
-        url: Entorno.WS_HOST + ':' + Entorno.WS_PORT + '/variables',
+        url: base + '/variables',
       },
       territorios: {
-        urlMunicipios: Entorno.WS_HOST+':' + Entorno.WS_PORT + '/municipios'
+        urlMunicipios: base + '/municipios'
       }
     }  
   }

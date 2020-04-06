@@ -29,6 +29,10 @@ import { faVirus } from '@fortawesome/free-solid-svg-icons'
 import { faThermometer } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VueGoogleAutocomplete from 'vue-google-autocomplete';
+import axios from 'axios';
+import Entorno from './entorno'
+
+axios.defaults.headers.common['Authorization'] = Entorno.API_MOVIL;
 
 library.add(faAngleLeft);
 library.add(faCircle);
