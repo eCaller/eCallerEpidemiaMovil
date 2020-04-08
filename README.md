@@ -36,6 +36,44 @@ eCaller Epidemias está constituida por dos componentes software:
     4. Medición cualitativa y cuantitativamente del grado de evolución de la enfermedad.
     5. Identificación de las zonas de riesgo.
 
+
+## Instalación
+1. Clonar el repositorio en una carpeta local
+
+    * `git clone  https://github.com/eCaller/eCallerEpidemiaMovil.git`
+  
+    * `cd eCallerEpidemiasMovil`
+  
+2. Instalación librería para el proyecto Vue
+  
+    * `npm install`
+
+3. Instalación librería para el proyecto Cordova
+    * `cd src-cordova`
+    * `npm install`
+    * `npm run add-android`
+
+4. Configuración entorno
+    * Editar el fichero src/entorno.js con los valores correctos para el entorno de ejecución. **API_MOVIL** debe coincidir con la que se configure en el backend. **API_KEY** debe ser una api key válida de **Google**.
+
+## Ejecución en local
+Como requerimiento antes de ejecutar la aplicación debe instalarse y configurarse el proyecto: [eCallerEpidemiaBackEnd](https://github.com/eCaller/eCallerEpidemiaBackEnd/)
+
+Antes de la ejecución es necesario disponer del SDK de Android.
+
+1. Ejecución en modo desarrollo
+
+    * `npm run cordova-serve-android`
+
+## Crear apk firmada
+* Dentro de **src-cordova/platform/android** agregar un fichero con el nombre **release-signing.properties** con las siguientes variables:
+    * storeFile= Path que apunte al almacén de claves
+    * storeType= Tipo de contenedor, por ejemplo jks
+    * keyAlias= Alias del certificado
+    * keyPassword= Contraseña del certificado
+    * storePassword= Contraseña del contenedor
+* `npm run cordova-build-android`
+
 ## Repositorios
 
 * **`App móvil`**.
