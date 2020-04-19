@@ -2,7 +2,7 @@
 
 [![logo](/docs/img/logo.png)](https://www.ingenia.es)
 
-> Spanish version (en desarrollo)
+> [**Spanish** version](https://github.com/eCaller/eCallerEpidemiaMovil/)
 
 ## Introduction
 
