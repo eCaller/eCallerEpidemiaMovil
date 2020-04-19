@@ -61,6 +61,7 @@ As a requirement before running the application, the project must be installed a
 Before execution it is necessary to have the Android SDK.
 
 1. Execution in development mode:
+
     * `npm run cordova-serve-android`
 
 ## Create signed apk
