@@ -52,7 +52,7 @@ eCaller Epidemias consists of two software components:
     * `npm run add-android`
 
 4. Setting environment:
-* Edit the src/environment.js file with the correct values for the runtime environment. **API_MOVIL** must match the one configured in the backend. **API_KEY** must be a valid **Google** API key.
+    * Edit the src/environment.js file with the correct values for the runtime environment. **API_MOVIL** must match the one configured in the backend. **API_KEY** must be a valid **Google** API key.
 
 ## Local execution
 
