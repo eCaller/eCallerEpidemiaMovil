@@ -69,11 +69,13 @@ Antes de la ejecución es necesario disponer del SDK de Android.
 
 ## Crear apk firmada
 * Dentro de **src-cordova/platform/android** agregar un fichero con el nombre **release-signing.properties** con las siguientes variables:
+
     * storeFile= Path que apunte al almacén de claves
     * storeType= Tipo de contenedor, por ejemplo jks
     * keyAlias= Alias del certificado
     * keyPassword= Contraseña del certificado
     * storePassword= Contraseña del contenedor
+
 * `npm run cordova-build-android`
 
 ## Repositorios
