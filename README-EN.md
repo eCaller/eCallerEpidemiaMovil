@@ -77,11 +77,11 @@ Before execution it is necessary to have the Android SDK.
 ## Repositories
 
 * **`Mobile app`**.
-    - [eCallerEpidemiaMovil](https://github.com/eCaller/eCallerEpidemiaMovil/)
+    - [eCallerEpidemiaMovil](https://github.com/eCaller/eCallerEpidemiaMovil/blob/master/README-EN.md)
 
 * **`Web application`**.
-    - [eCallerEpidemiaWeb](https://github.com/eCaller/eCallerEpidemiaWeb/)
-    - [eCallerEpidemiaBackEnd](https://github.com/eCaller/eCallerEpidemiaBackEnd/)
+    - [eCallerEpidemiaWeb](https://github.com/eCaller/eCallerEpidemiaWeb/blob/master/README-EN.md)
+    - [eCallerEpidemiaBackEnd](https://github.com/eCaller/eCallerEpidemiaBackEnd/blob/master/README-EN.md)
 
 ## Functional description
 
