@@ -86,11 +86,11 @@ Before execution it is necessary to have the Android SDK.
 
 ## Functional description
 
-The functional documentation of the software solution is available at the following link [Wiki-Functional description](https://github.com/eCaller/eCallerEpidemiaMovil/wiki/functional-description)
+The functional documentation of the software solution is available at the following link [Wiki-FunctionalDescription](https://github.com/eCaller/eCallerEpidemiaMovil/wiki/functional-description).
 
 ## Technical description
 
-The technical documentation of the software solution is available at the following link [Wiki-Technical description](https://github.com/eCaller/eCallerEpidemiaMovil/wiki/technical-description)
+The technical documentation of the software solution is available at the following link [Wiki-TechnicalDescription](https://github.com/eCaller/eCallerEpidemiaMovil/wiki/technical-description).
 
 ## Licensing
 
